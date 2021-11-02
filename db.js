@@ -1,5 +1,9 @@
+// NOTE: turn this into a plugin?
+
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+import { store } from './store/index'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDsihV4xc82H9ujIncR3vSiAye92MeY_oE",
@@ -14,4 +18,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
-export const db = getFirestore(app)
+const dp = getFirestore(app)
+
+// Link firebase authentication with vuex
+const auth = getAuth()
+auth.onAuthStateChanged(user => {
+  store.dispatch('fetchUser', user)
+})
+
+
+export default dp

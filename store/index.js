@@ -1,5 +1,9 @@
+// source for authentication logic: https://blog.logrocket.com/vue-firebase-authentication/
+// source for persistant storage: https://www.digitalocean.com/community/tutorials/vuejs-vuex-persist-state
+import Vue from 'vue'
 import Vuex from 'vuex'
-import { db } from '../db'
+import VuexPersist from 'vuex-persist'
+import db from '../db'
 import {
   collection,
   doc,
@@ -9,22 +13,57 @@ import {
   deleteDoc,
   updateDoc
 } from "firebase/firestore";
+import { getAuth } from 'firebase/auth'
+
+// persistant storage
+Vue.use(Vuex)
+
+const vuexLocalStorage = new VuexPersist({
+  key: 'vuex', // The key to store the state on in the storage provider.
+  storage: window.localStorage, // or window.sessionStorage or localForage
+  // Function that passes the state and returns the state with only the objects you want to store.
+  // reducer: state => state,
+  // Function that passes a mutation and lets you decide if it should update the state in localStorage.
+  // filter: mutation => (true)
+})
 
 export const store = new Vuex.Store({
-  mutations: {
-    setSubscriptions(state, subscriptionList) {
-      state.subscriptions = subscriptionList
-    }
-  },
-
+  // persistant storage
+  plugins: [vuexLocalStorage.plugin],
   state: {
     subscriptions: [],
     // hold the subscription to the firestore, as to unsubscribe later
     // NOTE: is this good practice? Can we also hold the ref to the col?
-    firebase_subscription: null
+    firebase_subscription: null,
+    // authentication data
+    user: {
+      loggedIn: false,
+      data: null
+    }
   },
 
+  getters: {
+    user(state) {
+      return state.user
+    },
+    loggedIn(state) {
+      return state.user.loggedIn
+    }
+  },
+
+  mutations: {
+    SET_SUBSCRIPTIONS(state, subscriptionList) {
+      state.subscriptions = subscriptionList
+    },
+    SET_LOGGED_IN(state, value) {
+      state.user.loggedIn = value;
+    },
+    SET_USER(state, data) {
+      state.user.data = data;
+    }
+  },
   // NOTE: all manipulation of state in the actions should go over mutations?
+  // NOTE: all accesses of state in the actions should go over getters?
   actions: {
     // bind the subscriptions
     bindSubscriptions(context) {
@@ -33,7 +72,7 @@ export const store = new Vuex.Store({
         context.state.firebase_subscription = onSnapshot(col, (QuerySnapshot) => {
           // make sure to keep the document ids
           const subscriptionList = QuerySnapshot.docs.map((doc) => Object.assign(doc.data(), { id: doc.id }));
-          context.commit('setSubscriptions', subscriptionList)
+          context.commit('SET_SUBSCRIPTIONS', subscriptionList)
         });
       }
     },
@@ -67,6 +106,26 @@ export const store = new Vuex.Store({
         const docRef = doc(db, 'subscriptions', data.id)
         updateDoc(docRef, data.subscription)
       }
+    },
+
+    // action to run when new user data becomes available
+    fetchUser({ commit }, user) {
+      commit("SET_LOGGED_IN", user !== null);
+      if (user) {
+        commit("SET_USER", {
+          displayName: user.displayName,
+          email: user.email
+        });
+      } else {
+        commit("SET_USER", null);
+      }
+    },
+
+    // sign out
+    // no commit neededm fetchUser does this automatically
+    signOut(context) {
+      const auth = getAuth()
+      auth.signOut()
     }
 
   },
