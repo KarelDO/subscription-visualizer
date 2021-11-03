@@ -11,7 +11,9 @@ import {
   onSnapshot,
   addDoc,
   deleteDoc,
-  updateDoc
+  updateDoc,
+  query,
+  where
 } from "firebase/firestore";
 import { getAuth } from 'firebase/auth'
 
@@ -38,7 +40,7 @@ export const store = new Vuex.Store({
     // authentication data
     user: {
       loggedIn: false,
-      data: null
+      data: null,
     }
   },
 
@@ -46,6 +48,7 @@ export const store = new Vuex.Store({
     user(state) {
       return state.user
     },
+    // meh, not really good practice if we already have a getter for user
     loggedIn(state) {
       return state.user.loggedIn
     }
@@ -68,8 +71,10 @@ export const store = new Vuex.Store({
     // bind the subscriptions
     bindSubscriptions(context) {
       if (!context.state.firebase_subscription) {
+        const uid = context.state.user.data.uid
         const col = collection(db, "subscriptions");
-        context.state.firebase_subscription = onSnapshot(col, (QuerySnapshot) => {
+        const q = query(col, where('uid', '==', uid))
+        context.state.firebase_subscription = onSnapshot(q, (QuerySnapshot) => {
           // make sure to keep the document ids
           const subscriptionList = QuerySnapshot.docs.map((doc) => Object.assign(doc.data(), { id: doc.id }));
           context.commit('SET_SUBSCRIPTIONS', subscriptionList)
@@ -114,7 +119,8 @@ export const store = new Vuex.Store({
       if (user) {
         commit("SET_USER", {
           displayName: user.displayName,
-          email: user.email
+          email: user.email,
+          uid: user.uid
         });
       } else {
         commit("SET_USER", null);

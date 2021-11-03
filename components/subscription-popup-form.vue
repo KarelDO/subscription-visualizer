@@ -102,10 +102,12 @@ export default defineComponent({
 
     function onSubmit() {
       // prepare the data
+      const uid = store.getters["user"].data.uid;
       const subscription = {
         title: titleRef.value,
         ratePerMonth: Number(ratePerMonthRef.value),
         startDate: Timestamp.fromDate(new Date(startDateRef.value)),
+        uid: uid,
       };
       // update or add, depending on presence of id
       if (props.id) {
