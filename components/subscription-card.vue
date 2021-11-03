@@ -77,8 +77,7 @@ export default defineComponent({
     // get startDate prop in the right format
     const startDateString = computed(() => {
       // firestore timestamp to date
-      console.log(props.startDate);
-      const startDate = new Date(props.startDate);
+      const startDate = new Date(props.startDate.seconds*1000);
       // date to dd/mm/yyyy
       var dd = String(startDate.getDate()).padStart(2, "0");
       var mm = String(startDate.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -91,7 +90,7 @@ export default defineComponent({
     const monthsPassed = computed(() => {
       // get amount of months passed
       const now = new Date();
-      const startDate = new Date(props.startDate);
+      const startDate = new Date(props.startDate.seconds*1000);
 
       return (
         now.getMonth() -

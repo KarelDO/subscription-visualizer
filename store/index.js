@@ -122,10 +122,14 @@ export const store = new Vuex.Store({
     },
 
     // sign out
-    // no commit neededm fetchUser does this automatically
-    signOut(context) {
+    // no commit needed, fetchUser does this automatically on authStateChange
+    signOut(store, context) {
       const auth = getAuth()
       auth.signOut()
+      // NOTE: better way to do this? maybe not
+      // NOTE: after signing out, system should detect this and automatically redirect to the standard page of unauthenticated users
+      // NOTE: maybe add the middleware as listener to onauthstatechange?
+      context.redirect('/authenticate');
     }
 
   },

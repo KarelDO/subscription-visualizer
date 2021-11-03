@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between py-4">
     <Header-Logo />
     <div class="flex">
       <Header-Add-Button />

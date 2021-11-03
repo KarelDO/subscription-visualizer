@@ -3,13 +3,15 @@
 </template>
 
 <script>
+import { useContext } from "@nuxtjs/composition-api";
 import { defineComponent, onMounted } from "@vue/composition-api";
 import { store } from "../store/index";
 
 export default defineComponent({
   setup() {
+    const context = useContext();
     function signOut() {
-      store.dispatch("signOut");
+      store.dispatch("signOut", context);
     }
 
     return { signOut };
