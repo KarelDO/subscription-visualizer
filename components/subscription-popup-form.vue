@@ -1,17 +1,17 @@
 <template>
-  <div class="bg-white p-5 rounded-lg">
-    <div class="text-gray-500 font-bold mb-4 text-center">
+  <div class="card-info p-8 rounded-lg blur-lg">
+    <div class="text-green-400 mb-4 text-center uppercase">
       <span v-if="id">Edit subscription</span>
       <span v-else>Add subscription</span>
     </div>
 
-    <form @submit.prevent="onSubmit" class="flex flex-col space-y-2">
+    <form @submit.prevent="onSubmit" class="flex flex-col space-y-3">
       <div>
-        <label class="text-gray-500 font-bold mb-1"> Title </label>
+        <label class="text-white uppercase mb-1"> Title </label>
         <input
           class="
             appearance-none
-            bg-gray-200
+            bg-gray-400
             border-2 border-gray-200
             rounded
             w-full
@@ -26,11 +26,11 @@
         />
       </div>
       <div>
-        <label class="text-gray-500 font-bold mb-1"> Rate (per month) </label>
+        <label class="text-white uppercase mb-1"> Rate (per month) </label>
         <input
           class="
             appearance-none
-            bg-gray-200
+            bg-gray-400
             border-2 border-gray-200
             rounded
             w-full
@@ -45,11 +45,11 @@
         />
       </div>
       <div>
-        <label class="text-gray-500 font-bold mb-1"> Start date </label>
+        <label class="text-white uppercase mb-1"> Start date </label>
         <input
           class="
             appearance-none
-            bg-gray-200
+            bg-gray-400
             border-2 border-gray-200
             rounded
             w-full
@@ -72,6 +72,7 @@
             px-4
             rounded
             appearance-none
+            uppercase
             text-white
             bg-green-400
           "

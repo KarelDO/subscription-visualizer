@@ -1,5 +1,7 @@
 <template>
   <div class="flex flex-col space-y-4">
+    <background-svg></background-svg>
+
     <subscription-card
       v-for="subscription in subscriptions"
       :key="subscription.id"

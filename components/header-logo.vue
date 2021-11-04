@@ -1,3 +1,3 @@
 <template>
-    <h1 class="text-white text-2xl tracking-widest flex items-center">Subscriptions</h1>
+    <h1 class="text-green-400 text-2xl tracking-widest flex items-center uppercase">Subscriptions</h1>
 </template>

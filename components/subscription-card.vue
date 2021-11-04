@@ -7,50 +7,34 @@
       :ratePerMonth="ratePerMonth"
       v-model="showModal"
     />
-    <!-- Card info -->
-    <div
-      class="
-        flex
-        justify-between
-        bg-card-info
-        p-4
-        pb-6
-        rounded-lg rounded-b-none
-      "
-    >
-      <div class="text-white tracking-widest">
-        <h1 class="text-2xl">{{ capitalizedTitle }}</h1>
-        <h2>started {{ startDateString }} ({{ monthsPassed }} months ago)</h2>
+    <div class="card-info tracking-widest p-6">
+      <!-- Card info -->
+      <div class="flex justify-between mb-8">
+        <div class="text-white tracking-widest">
+          <h1 class="text-2xl uppercase">{{ capitalizedTitle }}</h1>
+          <!-- <h2>started {{ startDateString }} ({{ monthsPassed }} months ago</h2> -->
+          <h2 class="uppercase">started {{ startDateString }}</h2>
+        </div>
+        <div class="text-gray-400">
+          <button
+            @click="showModal = true"
+            class="mdi mdi-pencil text-2xl"
+          ></button>
+          <button
+            @click="deleteSubscription"
+            class="mdi mdi-close text-2xl"
+          ></button>
+        </div>
       </div>
-      <div>
-        <span
-          @click="showModal = true"
-          class="mdi mdi-pencil text-white text-2xl"
-        ></span>
-        <span
-          @click="deleteSubscription"
-          class="mdi mdi-close text-white text-2xl"
-        ></span>
+      <!-- Card price  -->
+      <div class="flex justify-between text-green-400 uppercase">
+        <p>
+          <span class="text-2xl">€{{ ratePerMonth }}</span> / month
+        </p>
+        <p>
+          total <span class="text-2xl">€{{ total }}</span>
+        </p>
       </div>
-    </div>
-    <!-- Card price  -->
-    <div
-      class="
-        flex
-        justify-between
-        bg-card-price
-        p-4
-        rounded-lg rounded-t-none
-        tracking-widest
-        text-green
-      "
-    >
-      <p>
-        <span class="text-2xl">€{{ ratePerMonth }}</span> / month
-      </p>
-      <p>
-        total <span class="text-2xl">€{{ total }}</span>
-      </p>
     </div>
   </div>
 </template>
@@ -77,7 +61,7 @@ export default defineComponent({
     // get startDate prop in the right format
     const startDateString = computed(() => {
       // firestore timestamp to date
-      const startDate = new Date(props.startDate.seconds*1000);
+      const startDate = new Date(props.startDate.seconds * 1000);
       // date to dd/mm/yyyy
       var dd = String(startDate.getDate()).padStart(2, "0");
       var mm = String(startDate.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -90,7 +74,7 @@ export default defineComponent({
     const monthsPassed = computed(() => {
       // get amount of months passed
       const now = new Date();
-      const startDate = new Date(props.startDate.seconds*1000);
+      const startDate = new Date(props.startDate.seconds * 1000);
 
       return (
         now.getMonth() -
@@ -141,23 +125,34 @@ export default defineComponent({
 </script>
 
 <style>
-.bg-card-info {
+.card-info {
+  position: relative;
   background: linear-gradient(
-    90deg,
-    rgba(240, 240, 240, 0.51) 5.76%,
-    rgba(240, 240, 240, 0.318) 98.85%
+    99.7deg,
+    rgba(239, 239, 239, 0.36) 0%,
+    rgba(239, 239, 239, 0.06) 98.36%
   );
+  backdrop-filter: blur(14px);
 }
-
-.bg-card-price {
+.card-info::before {
+  /* source: https://dev.to/afif/border-with-gradient-and-radius-387f */
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
   background: linear-gradient(
-    90deg,
-    rgba(137, 253, 126, 0.29) 7.07%,
-    rgba(0, 194, 255, 0.29) 95.89%
-  );
-}
-
-.text-green {
-  color: #89fd7e;
+      99.7deg,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.1)
+    )
+    border-box; /*3*/
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
 }
 </style>

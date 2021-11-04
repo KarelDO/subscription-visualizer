@@ -1,8 +1,8 @@
 <template>
   <div class="flex align-end">
     <subscription-popup v-model="showModal" />
-    <button @click="showModal = true" class="bg-green-400 py-2 px-4 rounded-md">
-      <span class="text-white flex items-center tracking-widest"
+    <button @click="showModal = true" class="py-2 px-4 rounded-md">
+      <span class="text-green-400 flex items-center tracking-widest uppercase"
         >Add</span
       >
     </button>
