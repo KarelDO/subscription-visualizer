@@ -2,6 +2,11 @@
   <vue-final-modal v-model="showModal">
     <div
       class="
+        sm:w-full
+        md:w-2/3
+        lg:w-1/2
+        xl:w-1/3
+        px-4
         absolute
         top-1/2
         left-1/2

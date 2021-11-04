@@ -1,5 +1,10 @@
 <template>
-  <p @click="signOut" class="text-green-400 tracking-widest py-3 uppercase">Log out</p>
+  <button
+    @click="signOut"
+    class="text-green-400 tracking-widest py-3 uppercase"
+  >
+    Log out
+  </button>
 </template>
 
 <script>

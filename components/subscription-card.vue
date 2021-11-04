@@ -85,7 +85,7 @@ export default defineComponent({
 
     // get the total cost
     const total = computed(() => {
-      return props.ratePerMonth * monthsPassed.value;
+      return (props.ratePerMonth * monthsPassed.value).toFixed(2);
     });
 
     // title in right format
