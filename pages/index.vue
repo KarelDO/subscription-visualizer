@@ -2,7 +2,7 @@
   <div
     class="flex flex-col mx-auto space-y-4 md:w-2/3 lg:w-1/2 xl:w-1/3 relative"
   >
-    <background-svg></background-svg>
+    <!-- <background-svg></background-svg> -->
     <subscription-card
       v-for="subscription in subscriptions"
       :key="subscription.id"

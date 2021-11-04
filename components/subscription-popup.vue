@@ -2,7 +2,7 @@
   <vue-final-modal v-model="showModal">
     <div
       class="
-        sm:w-full
+        w-full
         md:w-2/3
         lg:w-1/2
         xl:w-1/3
