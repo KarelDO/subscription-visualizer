@@ -1,20 +1,26 @@
 <template>
-  <div>
-    <img class="img1" src="~/static/Ellipse.svg" alt="" />
-    <img class="img2" src="~/static/Ellipse2.svg" alt="" />
+  <div class="outerDiv">
+    <!-- <img class="img1" src="~/static/Ellipse.svg" alt="" /> -->
+    <!-- <img class="img2" src="~/static/Ellipse2.svg" alt="" /> -->
+    <img class="" src="~/static/coffee-background.jpg" alt="" />
   </div>
 </template>
 
 <style scoped>
-.img1 {
+.outerDiv {
   position: absolute;
-  margin-left: -10rem;
+}
+.img1 {
+  position: relative;
+  /* margin-left: -10rem; */
+  left: -5rem;
   top: 10rem;
 }
 .img2 {
-  position: absolute;
-  margin-right: -15rem;
-  top: 15rem;
-  right: 0;
+  position: relative;
+  /* margin-right: -15rem; */
+  /* top: 15rem; */
+  right: -25rem;
+  overflow: hidden;
 }
 </style>

@@ -1,16 +1,28 @@
 <template>
-  <div
-    class="flex flex-col mx-auto space-y-4 md:w-2/3 lg:w-1/2 xl:w-1/3 relative"
-  >
-    <!-- <background-svg></background-svg> -->
-    <subscription-card
-      v-for="subscription in subscriptions"
-      :key="subscription.id"
-      :id="subscription.id"
-      :title="subscription.title"
-      :startDate="subscription.startDate"
-      :ratePerMonth="subscription.ratePerMonth"
-    ></subscription-card>
+  <div class="fill-height md:pb-10">
+    <div
+      class="
+        h-full
+        background-image
+        py-14
+        px-4
+        md:px-28 md:rounded-2xl
+        flex flex-col
+        mx-auto
+        my-auto
+        space-y-6
+      "
+    >
+      <!-- <background-svg></background-svg> -->
+      <subscription-card
+        v-for="subscription in subscriptions"
+        :key="subscription.id"
+        :id="subscription.id"
+        :title="subscription.title"
+        :startDate="subscription.startDate"
+        :ratePerMonth="subscription.ratePerMonth"
+      ></subscription-card>
+    </div>
   </div>
 </template>
 
@@ -39,3 +51,24 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.fill-height {
+  height: 90vh;
+}
+.background-image {
+  display: block;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("static/coffee-background.jpg");
+  background-size: cover;
+  background-position-y: 50%;
+  background-repeat: no-repeat;
+  overflow: scroll;
+  overflow-x: hidden;
+  /* box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.61); */
+}
+.background-image::-webkit-scrollbar {
+  scrollbar-width: none;
+  display: none;
+}
+</style>

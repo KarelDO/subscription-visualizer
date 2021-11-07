@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6">
+  <div class="md:px-6">
     <header-header />
     <Nuxt />
     <!-- Teleport target for the modal -->
@@ -9,6 +9,6 @@
 
 <style>
 body {
-  background: #051e3a;
+  background: #eee7c7;
 }
 </style>

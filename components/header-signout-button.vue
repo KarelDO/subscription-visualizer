@@ -1,7 +1,7 @@
 <template>
   <button
     @click="signOut"
-    class="text-green-400 tracking-widest py-3 uppercase"
+    class="text-yellow-900 font-semibold tracking-widest uppercase"
   >
     Log out
   </button>

@@ -1,6 +1,6 @@
 <template>
   <div class="card-info p-8 rounded-lg blur-lg">
-    <div class="text-green-400 mb-4 text-center uppercase">
+    <div class="text-yellow-200 mb-4 text-center uppercase">
       <span v-if="id">Edit subscription</span>
       <span v-else>Add subscription</span>
     </div>
@@ -18,7 +18,7 @@
             py-2
             px-4
             text-gray-700
-            focus:outline-none focus:border-green-400 focus:bg-white
+            focus:outline-none focus:border-yellow-900
           "
           type="text"
           v-model="titleRef"
@@ -37,7 +37,7 @@
             py-2
             px-4
             text-gray-700
-            focus:outline-none focus:border-green-400 focus:bg-white
+            focus:outline-none focus:border-yellow-900
           "
           type="text"
           v-model="ratePerMonthRef"
@@ -56,7 +56,7 @@
             py-2
             px-4
             text-gray-700
-            focus:outline-none focus:border-green-400 focus:bg-white
+            focus:outline-none focus:border-yellow-900
           "
           type="date"
           v-model="startDateRef"
@@ -73,8 +73,10 @@
             rounded
             appearance-none
             uppercase
-            text-white
-            bg-green-400
+            font-semibold
+            focus:border-yellow-900
+            text-yellow-900
+            bg-yellow-200
           "
           type="submit"
         >

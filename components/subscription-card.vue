@@ -7,15 +7,15 @@
       :ratePerMonth="ratePerMonth"
       v-model="showModal"
     />
-    <div class="card-info tracking-widest p-6">
+    <div class="card-info mx-auto tracking-widest p-6 max-w-4xl">
       <!-- Card info -->
       <div class="flex justify-between mb-8">
         <div class="text-white tracking-widest">
-          <h1 class="text-2xl uppercase">{{ capitalizedTitle }}</h1>
-          <!-- <h2>started {{ startDateString }} ({{ monthsPassed }} months ago</h2> -->
+          <h1 class="text-2xl mb-2 uppercase">{{ capitalizedTitle }}</h1>
           <h2 class="uppercase">started {{ startDateString }}</h2>
+          <h2 class="uppercase">{{ monthsPassed }} months ago</h2>
         </div>
-        <div class="text-gray-400">
+        <div class="text-white">
           <button
             @click="showModal = true"
             class="mdi mdi-pencil text-2xl"
@@ -27,12 +27,12 @@
         </div>
       </div>
       <!-- Card price  -->
-      <div class="flex justify-between text-green-400 uppercase">
-        <p>
-          <span class="text-2xl">€{{ ratePerMonth }}</span> / month
+      <div class="grid grid-cols-12 justify-between text-yellow-200 uppercase">
+        <p class="col-span-12 md:col-span-6">
+          <span class="text-2xl">€{{ ratePerMonth }}</span>&nbsp;/ month
         </p>
-        <p>
-          total <span class="text-2xl">€{{ total }}</span>
+        <p class="col-span-12 md:col-span-6 col-end-13 md:text-right">
+          <span class="text-2xl">€{{ total }} </span> total
         </p>
       </div>
     </div>
@@ -132,9 +132,12 @@ export default defineComponent({
     rgba(239, 239, 239, 0.36) 0%,
     rgba(239, 239, 239, 0.06) 98.36%
   );
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 2px solid;
+  border-color: rgba(255, 255, 255, 0.774);
 }
-.card-info::before {
+.test-card-info::before {
   /* source: https://dev.to/afif/border-with-gradient-and-radius-387f */
   z-index: -1;
   content: "";
