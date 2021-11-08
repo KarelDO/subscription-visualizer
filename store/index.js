@@ -13,7 +13,8 @@ import {
   deleteDoc,
   updateDoc,
   query,
-  where
+  where,
+  orderBy
 } from "firebase/firestore";
 import { getAuth } from 'firebase/auth'
 
@@ -73,7 +74,7 @@ export const store = new Vuex.Store({
       if (!context.state.firebase_subscription) {
         const uid = context.state.user.data.uid
         const col = collection(db, "subscriptions");
-        const q = query(col, where('uid', '==', uid))
+        const q = query(col, where('uid', '==', uid), orderBy('ratePerMonth','desc'))
         context.state.firebase_subscription = onSnapshot(q, (QuerySnapshot) => {
           // make sure to keep the document ids
           const subscriptionList = QuerySnapshot.docs.map((doc) => Object.assign(doc.data(), { id: doc.id }));
