@@ -29,7 +29,8 @@
       <!-- Card price  -->
       <div class="grid grid-cols-12 justify-between text-yellow-200 uppercase">
         <p class="col-span-12 md:col-span-6">
-          <span class="text-2xl">€{{ ratePerMonth }}</span>&nbsp;/ month
+          <span class="text-2xl">€{{ ratePerMonth }}</span
+          >&nbsp;/ month
         </p>
         <p class="col-span-12 md:col-span-6 col-end-13 md:text-right">
           <span class="text-2xl">€{{ total }} </span> total

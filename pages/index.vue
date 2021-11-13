@@ -1,6 +1,8 @@
 <template>
   <div class="fill-height md:pb-10">
-    <div
+    <!-- <background-svg></background-svg> -->
+    <transition-group
+      name="list"
       class="
         h-full
         background-image
@@ -13,7 +15,6 @@
         space-y-6
       "
     >
-      <!-- <background-svg></background-svg> -->
       <subscription-card
         v-for="subscription in subscriptions"
         :key="subscription.id"
@@ -22,7 +23,7 @@
         :startDate="subscription.startDate"
         :ratePerMonth="subscription.ratePerMonth"
       ></subscription-card>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -31,7 +32,7 @@ import { defineComponent, computed } from "@vue/composition-api";
 import { store } from "../store/index";
 
 export default defineComponent({
-  middleware: "authh",
+  middleware: "auth",
   setup() {
     // bind the subscriptions
     store.dispatch("bindSubscriptions");
@@ -70,5 +71,18 @@ export default defineComponent({
 .background-image::-webkit-scrollbar {
   scrollbar-width: none;
   display: none;
+}
+/* list animations */
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(-30px);
 }
 </style>
