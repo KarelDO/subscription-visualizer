@@ -1,5 +1,3 @@
-// NOTE: turn this into a plugin?
-
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'

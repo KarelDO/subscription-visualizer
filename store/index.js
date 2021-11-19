@@ -24,10 +24,6 @@ Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex', // The key to store the state on in the storage provider.
   storage: window.localStorage, // or window.sessionStorage or localForage
-  // Function that passes the state and returns the state with only the objects you want to store.
-  // reducer: state => state,
-  // Function that passes a mutation and lets you decide if it should update the state in localStorage.
-  // filter: mutation => (true)
 })
 
 export const store = new Vuex.Store({
@@ -36,7 +32,6 @@ export const store = new Vuex.Store({
   state: {
     subscriptions: [],
     // hold the subscription to the firestore, as to unsubscribe later
-    // NOTE: is this good practice? Can we also hold the ref to the col?
     firebase_subscription: null,
     // authentication data
     user: {
@@ -49,13 +44,15 @@ export const store = new Vuex.Store({
     user(state) {
       return state.user
     },
-    // meh, not really good practice if we already have a getter for user
     loggedIn(state) {
       return state.user.loggedIn
     }
   },
 
   mutations: {
+    SET_FIREBASE_SUBSCRIPTIONS(state, firebase_subscription) {
+      state.firebase_subscription = firebase_subscription
+    },
     SET_SUBSCRIPTIONS(state, subscriptionList) {
       state.subscriptions = subscriptionList
     },
@@ -74,12 +71,13 @@ export const store = new Vuex.Store({
       if (!context.state.firebase_subscription) {
         const uid = context.state.user.data.uid
         const col = collection(db, "subscriptions");
-        const q = query(col, where('uid', '==', uid), orderBy('ratePerMonth','desc'))
-        context.state.firebase_subscription = onSnapshot(q, (QuerySnapshot) => {
+        const q = query(col, where('uid', '==', uid), orderBy('ratePerMonth', 'desc'))
+        const firebase_subscription = onSnapshot(q, (QuerySnapshot) => {
           // make sure to keep the document ids
           const subscriptionList = QuerySnapshot.docs.map((doc) => Object.assign(doc.data(), { id: doc.id }));
           context.commit('SET_SUBSCRIPTIONS', subscriptionList)
         });
+        context.commit('SET_FIREBASE_SUBSCRIPTIONS', firebase_subscription)
       }
     },
 
@@ -87,7 +85,8 @@ export const store = new Vuex.Store({
     unbindSubscriptions(context) {
       if (context.state.firebase_subscription) {
         context.state.firebase_subscription()
-        context.state.firebase_subscription = null
+        context.commit('SET_FIREBASE_SUBSCRIPTIONS', null)
+
       }
     },
 

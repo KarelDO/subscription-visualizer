@@ -1,6 +1,5 @@
 <template>
   <div class="fill-height md:pb-10">
-    <!-- <background-svg></background-svg> -->
     <transition-group
       name="list"
       class="
@@ -38,13 +37,11 @@ export default defineComponent({
     store.dispatch("bindSubscriptions");
 
     // computed property to get the subscriptions from the state
-    // NOTE: we should do this via the getters (vuex-composition-helpers)
     const subscriptions = computed(() => {
       return store.state.subscriptions;
     });
 
     // computed property to get user data from store
-    // NOTE: can we inject this data in the context, as to reuse it everywhere in the app?
     const user = computed(() => {
       return store.getters.user;
     });
@@ -66,7 +63,6 @@ export default defineComponent({
   background-repeat: no-repeat;
   overflow: scroll;
   overflow-x: hidden;
-  /* box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.61); */
 }
 .background-image::-webkit-scrollbar {
   scrollbar-width: none;

@@ -56,9 +56,6 @@ export default defineComponent({
     // toggles visibility of modal
     const showModal = ref(false);
 
-    // NOTE: makes more sense to calculate all these properties in the getter of the store.
-    // This way, this component is agnostic of the store implementation.
-
     // get startDate prop in the right format
     const startDateString = computed(() => {
       // firestore timestamp to date
@@ -137,26 +134,5 @@ export default defineComponent({
   border-radius: 10px;
   border: 2px solid;
   border-color: rgba(255, 255, 255, 0.774);
-}
-.test-card-info::before {
-  /* source: https://dev.to/afif/border-with-gradient-and-radius-387f */
-  z-index: -1;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 2px solid transparent;
-  background: linear-gradient(
-      99.7deg,
-      rgba(255, 255, 255, 0.6),
-      rgba(255, 255, 255, 0.1)
-    )
-    border-box; /*3*/
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
 }
 </style>
